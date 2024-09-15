@@ -26,6 +26,10 @@ export default function PaymentDetail(props: IProps) {
     <div className="flex flex-col gap-5">
       <div className="flex flex-col border-b-3 bg-gray-100 p-2 rounded-lg">
         <div className="flex justify-between">
+          <h2>ID User</h2>
+          <h2 className="font-black">{paymentData.idUser}</h2>
+        </div>
+        <div className="flex justify-between">
           <h2>Nama</h2>
           <h2 className="font-black">{paymentData.name}</h2>
         </div>
@@ -86,14 +90,14 @@ export default function PaymentDetail(props: IProps) {
           </h2>
         </div>
       </div>
-      {permissions.includes(PERMISSIONS.PARTICIPANT_TRANSFER) && (
+      {permissions.includes(PERMISSIONS.TRANSACTION_EDIT) && (
         <Button
           onClick={handleChangeTransfer}
           className={`${
             isTransfer ? "bg-red-700" : "bg-brand-dark"
           } rounded-full text-white duration-500 font-bold py-1`}
         >
-          {isTransfer ? "Batal Transfer" : "Transfer Peserta"}
+          {isTransfer ? "Batal Edit" : "Edit Transaksi"}
         </Button>
       )}
     </div>

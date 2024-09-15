@@ -12,11 +12,15 @@ export default function Payment() {
     paymentData,
     statusUpdate,
     paymentDataCheck,
+    userDataCheck,
     form,
     isTransfer,
+    isCheckBox,
+    handleCheckBox,
     setIsTransfer,
     handleInputChange,
     handleCheckPaymnentId,
+    handleCheckUserId,
     handleStatusSelect,
     handleSubmitTransfer,
   } = usePayment();
@@ -47,12 +51,16 @@ export default function Payment() {
       {isTransfer && (
         <div className="bg-white p-4 md:col-span-3 text-center flex flex-col justify-center w-full gap-3 rounded-xl drop-shadow-md ">
           <TransferForm
+            userDataCheck={userDataCheck}
             paymentDataCheck={paymentDataCheck}
             form={form}
             optionsStatus={statusUpdate}
+            isCheckBox={isCheckBox}
+            handleCheckBox={handleCheckBox}
             handleInputChange={handleInputChange}
             handleStatusChange={handleStatusSelect}
             handleCheckPaymentId={handleCheckPaymnentId}
+            handleCheckUserId={handleCheckUserId}
             handleSubmitTransfer={handleSubmitTransfer}
           />
         </div>

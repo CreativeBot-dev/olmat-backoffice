@@ -29,7 +29,7 @@ export default function AntInput(props: IAntInput) {
   } = props;
 
   return (
-    <div className="h-fit ">
+    <div className="h-fit w-full ">
       <label className="text-sm">{labelName}</label>
       <Form.Item
         name={name}

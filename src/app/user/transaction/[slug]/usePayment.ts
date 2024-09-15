@@ -1,23 +1,21 @@
 import api from "@/config/axiosConfig";
 import { useLayout } from "@/hooks/zustand/layout";
+import { IParticipant } from "@/interfaces/IParticipant";
+import { IUsers } from "@/interfaces/IUsers";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useForm } from "antd/es/form/Form";
 import { useParams } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
-interface IParticipant {
-  name: string;
-  gender: string;
-  birth: string;
-}
-
 interface ITransferPayload {
   newPayment_id?: number;
   newSchool_id?: number;
-  NewUser_id?: number;
-  status?: string;
+  newUser_id?: number;
+  newStatus?: string;
 }
 
 export interface IPaymentData {
+  idUser: number;
   name: string;
   invoice: string;
   code: string;
@@ -38,9 +36,12 @@ const usePayment = () => {
   const [form] = useForm();
   const { setError, setIsSuccess } = useLayout();
 
+  const [isCheckBox, setIsCheckBox] = useState({
+    payment: false,
+    user: false,
+  });
   const [isTransfer, setIsTransfer] = useState(false);
   const [transferPayload, setTransferPayload] = useState<ITransferPayload>({});
-  console.log(transferPayload);
   const statusUpdate = [
     {
       label: "active",
@@ -51,7 +52,9 @@ const usePayment = () => {
       value: "pending",
     },
   ];
+  const [userDataCheck, setUserDataCheck] = useState<IUsers>();
   const [paymentDataCheck, setPaymentDataCheck] = useState<IPaymentData>({
+    idUser: 0,
     name: "",
     invoice: "",
     code: "",
@@ -68,6 +71,7 @@ const usePayment = () => {
   });
 
   const [paymentData, setPaymentData] = useState<IPaymentData>({
+    idUser: 0,
     name: "",
     invoice: "",
     code: "",
@@ -86,6 +90,7 @@ const usePayment = () => {
   async function getPaymentById() {
     await api.get(`/backoffice/payment/${params}`).then((res) => {
       const resData: IPaymentData = {
+        idUser: res.data.user.id,
         name: res.data.user.name,
         invoice: res.data.invoice,
         code: res.data.code,
@@ -104,11 +109,31 @@ const usePayment = () => {
     });
   }
 
+  async function getUserCheck() {
+    await api
+      .get(`/backoffice/user/${transferPayload.newUser_id}`)
+      .then((res) => {
+        const user = {
+          id: res.data.id,
+          name: res.data.name,
+          email: res.data.email,
+          phone: res.data.phone,
+          region: "",
+          school: res.data.school.name,
+        };
+        setUserDataCheck(user);
+      })
+      .catch(() => {
+        setError(true, "User tidak ditemukan");
+      });
+  }
+
   async function getPaymentCheck() {
     await api
       .get(`/backoffice/payment/${transferPayload.newPayment_id}`)
       .then((res) => {
         const resData: IPaymentData = {
+          idUser: res.data.user.id,
           name: res.data.user.name,
           invoice: res.data.invoice,
           code: res.data.code,
@@ -123,27 +148,23 @@ const usePayment = () => {
           participants: res.data.participants,
           create_at: res.data.audit_trail.created_at,
         };
+
         setPaymentDataCheck(resData);
       });
   }
 
   async function transferParticipant() {
     await api
-      .put(`/backoffice/participant/payments/${params}`, {
-        newPayment_id: transferPayload.newPayment_id,
-        newSchool_id: transferPayload.newSchool_id,
-        NewUser_id: transferPayload.NewUser_id,
-        status: transferPayload.status,
-      })
-      .then((res) => {
-        console.log(res.data);
+      .put(`/backoffice/participant/payments/${params}`, transferPayload)
+      .then(() => {
         setIsTransfer(false);
         getPaymentById();
-        setIsSuccess(true, "Berhasil Transfer");
+        form.resetFields();
+        setTransferPayload({});
+        setIsSuccess(true, "Berhasil Update Transaksi");
       })
-      .catch((err) => {
-        console.log(err);
-        setError(true, "Gagal Transfer");
+      .catch(() => {
+        setError(true, "Gagal Update Transfer");
       });
   }
 
@@ -160,18 +181,49 @@ const usePayment = () => {
   }
 
   function handleStatusSelect(e: any) {
-    setTransferPayload({ ...transferPayload, status: e });
+    setTransferPayload({ ...transferPayload, newStatus: e });
   }
 
   /**
    * HANDLE SUBMIT ETC
    */
 
+  function handleCheckBox(e: CheckboxChangeEvent) {
+    const updatedPayload = { ...transferPayload };
+    if (!e.target.checked) {
+      if (e.target.name === "payment") {
+        form.setFieldsValue({
+          newPayment_id: null,
+        });
+        delete updatedPayload.newPayment_id;
+      }
+      if (e.target.name === "user") {
+        form.setFieldsValue({
+          nweUser_id: null,
+        });
+        delete updatedPayload.newUser_id;
+      }
+    }
+    setTransferPayload(updatedPayload);
+    setIsCheckBox((prev) => ({
+      ...prev,
+      [e.target.name as string]: e.target.checked,
+    }));
+  }
+
   function handleCheckPaymnentId() {
     if (transferPayload.newPayment_id) {
       getPaymentCheck();
     } else {
-      setError(true, "Masukkan ");
+      setError(true, "Masukkan id Payment");
+    }
+  }
+
+  function handleCheckUserId() {
+    if (transferPayload.newUser_id) {
+      getUserCheck();
+    } else {
+      setError(true, "Masukkan id User");
     }
   }
 
@@ -187,11 +239,15 @@ const usePayment = () => {
     form,
     paymentData,
     paymentDataCheck,
+    userDataCheck,
     statusUpdate,
     isTransfer,
+    isCheckBox,
+    handleCheckBox,
     setIsTransfer,
     handleInputChange,
     handleCheckPaymnentId,
+    handleCheckUserId,
     handleStatusSelect,
     handleSubmitTransfer,
   };
