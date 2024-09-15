@@ -6,19 +6,29 @@ import { LiaCashRegisterSolid } from "react-icons/lia";
 import { HiOutlineReceiptTax } from "react-icons/hi";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
+import { useLayout } from "@/hooks/zustand/layout";
+import { PERMISSIONS } from "@/enum/permission.enum";
+import Button from "@/components/button/Button";
 
 dayjs.locale("id");
 
 interface IProps {
   paymentData: IPaymentData;
+  isTransfer: boolean;
+  handleChangeTransfer: () => void;
 }
 
 export default function PaymentDetail(props: IProps) {
-  const { paymentData } = props;
+  const { paymentData, isTransfer, handleChangeTransfer } = props;
+  const { permissions } = useLayout();
 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col border-b-3 bg-gray-100 p-2 rounded-lg">
+        <div className="flex justify-between">
+          <h2>ID User</h2>
+          <h2 className="font-black">{paymentData.idUser}</h2>
+        </div>
         <div className="flex justify-between">
           <h2>Nama</h2>
           <h2 className="font-black">{paymentData.name}</h2>
@@ -80,6 +90,16 @@ export default function PaymentDetail(props: IProps) {
           </h2>
         </div>
       </div>
+      {permissions.includes(PERMISSIONS.TRANSACTION_EDIT) && (
+        <Button
+          onClick={handleChangeTransfer}
+          className={`${
+            isTransfer ? "bg-red-700" : "bg-brand-dark"
+          } rounded-full text-white duration-500 font-bold py-1`}
+        >
+          {isTransfer ? "Batal Edit" : "Edit Transaksi"}
+        </Button>
+      )}
     </div>
   );
 }
