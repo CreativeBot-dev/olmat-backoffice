@@ -3,9 +3,15 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
+        pathname: "/**",
+      },
+      {
         protocol: "https",
-        hostname: "cathabot.com",
-        port: "",
+        hostname: "api.olmat.web.id",
+        pathname: "/**",
       },
     ],
   },
