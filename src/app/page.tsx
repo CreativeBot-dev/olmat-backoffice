@@ -43,7 +43,7 @@ export default function Page() {
           >
             <div className="bg-slate-100/60 p-3 rounded-lg mb-5">
               <p className="uppercase font-bold text-center">Akun demo</p>
-              <p>email : user@user.com</p>
+              <p>email : admin@admin.com</p>
               <div>password : qweqweqwe</div>
             </div>
             <AntEmail
