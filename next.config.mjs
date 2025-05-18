@@ -10,6 +10,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "dev.api.olmat.web.id",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "api.olmat.web.id",
         pathname: "/**",
       },
