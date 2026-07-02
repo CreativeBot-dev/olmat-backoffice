@@ -116,6 +116,7 @@ export default function useParticipant() {
 
           return {
             id: data.id,
+            keplekId: data.keplekId,
             name: data.name,
             school: data.school.name,
             degree: data.school.degree.name,
@@ -140,6 +141,7 @@ export default function useParticipant() {
       .then((res) => {
         const participantData = res.data.data.map((participant: any) => ({
           id: participant.id,
+          keplekId: participant.keplekId,
           status: participant.status,
           school: participant.school.name,
           degree: participant.school.degree.name,

@@ -82,6 +82,9 @@ export default function TablePeserta(props: IProps) {
             No.
           </TableColumn>
           <TableColumn align="center" scope="col">
+            No. Peserta
+          </TableColumn>
+          <TableColumn align="center" scope="col">
             Nama Peserta
           </TableColumn>
           <TableColumn align="center" className="" scope="col">
@@ -93,12 +96,7 @@ export default function TablePeserta(props: IProps) {
           <TableColumn align="center" scope="col">
             Jenis Kelamin
           </TableColumn>
-          <TableColumn align="center" scope="col">
-            No. Tlp
-          </TableColumn>
-          <TableColumn align="center" scope="col">
-            Email
-          </TableColumn>
+
           <TableColumn align="center" scope="col">
             Status
           </TableColumn>
@@ -118,6 +116,9 @@ export default function TablePeserta(props: IProps) {
               <TableCell className="text-xs" data-label="No">
                 {i + 1}
               </TableCell>
+              <TableCell className="text-xs" data-label="email">
+                {data.keplekId}
+              </TableCell>
               <TableCell className="text-xs text-start" data-label="name">
                 {data.name}
               </TableCell>
@@ -130,12 +131,7 @@ export default function TablePeserta(props: IProps) {
               <TableCell data-label="gender" className="text-xs">
                 {genderLabel(data.gender)}
               </TableCell>
-              <TableCell className="text-xs" data-label="phone">
-                {data.phone}
-              </TableCell>
-              <TableCell className="text-xs" data-label="email">
-                {data.email}
-              </TableCell>
+
               <TableCell className="text-xs" data-label="status">
                 <Chip
                   variant="flat"

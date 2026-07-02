@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Ubuntu } from "next/font/google";
+// import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./provider";
 
-const font = Ubuntu({ subsets: ["latin"], weight: "300" });
+// const font = Ubuntu({ subsets: ["latin"], weight: "300" });
 
 export const metadata: Metadata = {
   title: "Backoffice Olmat Uinsa",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>

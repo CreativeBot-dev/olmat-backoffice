@@ -4,13 +4,13 @@ import { useLayout } from "@/hooks/zustand/layout";
 import { Form } from "antd";
 import React from "react";
 
-// interface IProps {
-//   form?: any;
-//   handleChange?: (
-//     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-//   ) => void;
-//   onFinish?: () => void;
-// }
+interface IProps {
+  form?: any;
+  handleChange?: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
+  onFinish?: () => void;
+}
 
 export default function ApiKey() {
   const { setIsSuccess } = useLayout();

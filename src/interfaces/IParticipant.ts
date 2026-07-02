@@ -1,5 +1,6 @@
 export interface IParticipant {
   id?: string;
+  keplekId?: string;
   status: string;
   school?: number;
   region?: string;
