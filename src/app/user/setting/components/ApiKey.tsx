@@ -11,8 +11,8 @@ interface IProps {
   onFinish?: () => void;
 }
 
-export default function ApiKey(props: IProps) {
-  const { form, handleChange, onFinish } = props;
+export default function ApiKey({ form, handleChange, onFinish }: IProps) {
+  // const { form, handleChange, onFinish } = props;
   return (
     <>
       <div className="bg-white p-4 rounded-lg drop-shadow">
