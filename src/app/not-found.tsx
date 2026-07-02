@@ -22,7 +22,7 @@ export default function notFound() {
       </Link>
       <span className="font-bold mt-6">
         <Link
-          href={"https://cathabot.com/"}
+          href={"https://mcrama.vercel.app/"}
           target="_blank"
           className="flex items-center gap-2 hover:scale-110 hover:rotate-3 duration-500"
         >

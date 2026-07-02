@@ -10,7 +10,7 @@ export default function Bottom() {
         © Copyright 2024 Olimpiade Matematika Uinsa All rights reserved
         <span className="font-bold">
           <Link
-            href={"https://cathabot.com/"}
+            href={"https://mcrama.vercel.app/"}
             target="_blank"
             className="flex items-center gap-2"
           >

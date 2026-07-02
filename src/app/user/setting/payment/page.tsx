@@ -10,14 +10,12 @@ export default function Payment() {
   const {
     payments,
     logo,
-    form,
     isOpenAdd,
     isOpenEdit,
     payPayload,
     paymentForm,
     paymentFormEdit,
-    handleChangeApi,
-    handleSubmitApi,
+
     handleSubmitAddPayment,
     handleSubmitUpdatePayment,
     handleChangePayment,
@@ -29,11 +27,7 @@ export default function Payment() {
   } = usePayment();
   return (
     <div className="flex flex-col gap-5">
-      <ApiKey
-        form={form}
-        handleChange={handleChangeApi}
-        onFinish={handleSubmitApi}
-      />
+      <ApiKey />
 
       <div className="bg-white rounded-lg flex flex-col gap-3  p-4 drop-shadow">
         <div className="flex justify-between">
