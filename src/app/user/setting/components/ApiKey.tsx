@@ -6,7 +6,7 @@ import React, { ChangeEvent } from "react";
 interface IProps {
   form?: any;
   handleChange?: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   onFinish?: () => void;
 }
