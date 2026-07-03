@@ -19,7 +19,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /olmat/olmat-backoffice
+            cd olmat/olmat-backoffice
             git reset --hard
             git pull origin main
             yarn install
