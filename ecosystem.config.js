@@ -7,6 +7,7 @@ module.exports = {
       cwd: "/root/olmat/olmat-backoffice",
       instances: 1,
       autorestart: true,
+      exec_mode: "cluster",
       watch: false,
       max_memory_restart: "700M",
       env: {
