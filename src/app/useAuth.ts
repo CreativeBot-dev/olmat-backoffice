@@ -20,7 +20,7 @@ const useAuth = () => {
   });
 
   function handleChange(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   }
